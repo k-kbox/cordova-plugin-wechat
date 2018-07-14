@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-wechat",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-wechat",
+    "platforms": [
+      "android",
+      "ios",
+      "browser"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-kbox/cordova-plugin-wechat.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-browser"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k-kbox/cordova-plugin-wechat/issues"
+  },
+  "homepage": "https://github.com/k-kbox/cordova-plugin-wechat#readme"
+}
