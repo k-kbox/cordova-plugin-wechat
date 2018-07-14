@@ -107,13 +107,13 @@ public class WeChat extends CordovaPlugin {
 
         super.pluginInitialize();
 
-        // String id = getAppId();
+        String id = getAppId();
 
         // save app id
-        // saveAppId(cordova.getActivity(), id);
+        saveAppId(cordova.getActivity(), id);
 
         // init api
-        // initWXAPI();
+        initWXAPI();
 
         Log.d(TAG, "plugin initialized.");
     }
