@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1c935fa-c7fa-4eca-8ba2-0a09cfdbcc61" name="Default" comment="" />
+    <list default="true" id="c1c935fa-c7fa-4eca-8ba2-0a09cfdbcc61" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../cordova-plugin-wechat/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cordova-plugin-wechat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../cordova-plugin-wechat/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -18,7 +21,7 @@
         <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/www/wechat.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+              <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -27,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/android/EntryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-444">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -45,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/android/WXPayEntryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="35" lean-forward="true" selection-start-column="35" selection-end-column="35" />
+              <caret column="35" selection-start-column="35" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -53,10 +56,24 @@
       <file leaf-file-name="plugin.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/plugin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+            <state relative-caret-position="-30">
+              <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="android-build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/android-build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="Util.java" pinned="false" current-in-tab="false">
@@ -77,20 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeChat.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WeChat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/android/WeChat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="174" column="38" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="wechat.m" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/ios/wechat.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="57" lean-forward="true" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+            <state relative-caret-position="361">
+              <caret line="178" column="34" selection-start-line="178" selection-start-column="34" selection-end-line="178" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -106,6 +114,9 @@
       <replace>JSONArray</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../cordova-plugin-wechat" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -120,6 +131,7 @@
         <option value="$PROJECT_DIR$/../cordova-plugin-wechat/www/browser/wechat.js" />
         <option value="$PROJECT_DIR$/../cordova-plugin-wechat/www/wechat.js" />
         <option value="$PROJECT_DIR$/../cordova-plugin-wechat/src/android/WeChat.java" />
+        <option value="$PROJECT_DIR$/../cordova-plugin-wechat/android-build.gradle" />
       </list>
     </option>
   </component>
@@ -146,6 +158,7 @@
     <option name="width" value="1429" />
     <option name="height" value="775" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -214,6 +227,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../cordova-plugin-wechat" />
       <recent name="$PROJECT_DIR$/../cordova-plugin-wechat/www/browser" />
     </key>
   </component>
@@ -239,12 +253,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1531563062304</updated>
-      <workItem from="1531563063882" duration="5831000" />
+      <workItem from="1531563063882" duration="6509000" />
     </task>
+    <task id="LOCAL-00001" summary="0.0.1">
+      <created>1531582577820</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531582577820</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5831000" />
+    <option name="totallyTimeSpent" value="6509000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1429" height="775" extended-state="0" />
@@ -253,7 +275,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -273,11 +295,15 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="0.0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.0.1" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/ios/wechat.m">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="16" column="57" lean-forward="true" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+          <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -291,7 +317,7 @@
     <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/android/WXPayEntryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="35" lean-forward="true" selection-start-column="35" selection-end-column="35" />
+          <caret column="35" selection-start-column="35" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -302,17 +328,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/plugin.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/android/EntryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-444">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
@@ -326,16 +345,33 @@
     <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/www/wechat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/src/android/WeChat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="174" column="38" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
+        <state relative-caret-position="361">
+          <caret line="178" column="34" selection-start-line="178" selection-start-column="34" selection-end-line="178" selection-end-column="34" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/android-build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cordova-plugin-wechat/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
