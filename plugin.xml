@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-wechat" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>WeChat</name>
+    <js-module name="WeChat" src="www/wechat.js">
+        <clobbers target="cordova.plugins.wechat"/>
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="WeChat">
+                <param name="android-package" value="cordova.plugins.wechat.WeChat"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                    android:name="com.cordova.plugins.wechat.WXEntryActivity"
+                    android:label="@string/launcher_name"
+                    android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                    <data android:scheme="$WECHATAPPID"/>
+                </intent-filter>
+            </activity>
+            <activity
+                    android:name="com.cordova.plugins.wechat.WXPayEntryActivity"
+                    android:label="@string/launcher_name"
+                    android:exported="true"
+                    android:launchMode="singleTop">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                    <data android:scheme="$WECHATAPPID"/>
+                </intent-filter>
+            </activity>
+            <activity-alias
+                    android:name=".wxapi.WXEntryActivity"
+                    android:targetActivity="com.cordova.plugins.wechat.WXEntryActivity"
+                    android:label="@string/launcher_name"
+                    android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                    <data android:scheme="$WECHATAPPID"/>
+                </intent-filter>
+            </activity-alias>
+            <activity-alias
+                    android:name=".wxapi.WXPayEntryActivity"
+                    android:targetActivity="com.cordova.plugins.wechat.WXPayEntryActivity"
+                    android:label="@string/launcher_name"
+                    android:exported="true"
+                    android:launchMode="singleTop">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                    <data android:scheme="$WECHATAPPID"/>
+                </intent-filter>
+            </activity-alias>
+        </config-file>
+
+        <source-file src="src/android/WeChat.java" target-dir="src/com/cordova/plugins/wechat" />
+        <source-file src="src/android/Util.java" target-dir="src/com/cordova/plugins/wechat" />
+        <source-file src="src/android/EntryActivity.java" target-dir="src/com/cordova/plugins/wechat" />
+        <source-file src="src/android/WXEntryActivity.java" target-dir="src/com/cordova/plugins/wechat" />
+        <source-file src="src/android/WXPayEntryActivity.java" target-dir="src/com/cordova/plugins/wechat" />
+        <framework src="android-build.gradle" custom="true" type="gradleReference" />
+
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="WeChat">
+                <param name="ios-package" value="cordova.plugins.webchat"/>
+            </feature>
+        </config-file>
+        <source-file src="src/ios/webchat.m"/>
+    </platform>
+    <platform name="browser">
+        <js-module name="WeChatJs" src="www/browser/wechat.js">
+            <clobbers target="cordova.plugins.wechat"/>
+        </js-module>
+    </platform>
+</plugin>
