@@ -6,6 +6,10 @@ module.exports = {
     exec(success, fail, 'WeChat', "init", [appid])
   },
 
+  unifiedOrder: function(url, params, success, fail) {
+    exec(success, fail, "WeChat", "unifiedOrder", [url, params]);
+  },
+
   pay: function (params, success, fail) {
     // exec(success, error, 'WeChat', 'pay', [payinfo]);
     exec(success, fail, "WeChat", "sendPaymentRequest", [params]);

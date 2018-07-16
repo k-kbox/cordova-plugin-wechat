@@ -63,13 +63,13 @@ public class Util {
         try {
             fileURL = new URL(url);
 
-            Log.d(Wechat.TAG, String.format("Start downloading file at %s.", url));
+            Log.d(WeChat.TAG, String.format("Start downloading file at %s.", url));
 
             HttpURLConnection connection = (HttpURLConnection) fileURL.openConnection();
             connection.connect();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                Log.e(Wechat.TAG, String.format("Failed to download file from %s, response code: %d.", url, connection.getResponseCode()));
+                Log.e(WeChat.TAG, String.format("Failed to download file from %s, response code: %d.", url, connection.getResponseCode()));
                 return null;
             }
 
@@ -86,7 +86,7 @@ public class Util {
             }
             outputStream.close();
 
-            Log.d(Wechat.TAG, String.format("File was downloaded and saved at %s.", cacheFile.getAbsolutePath()));
+            Log.d(WeChat.TAG, String.format("File was downloaded and saved at %s.", cacheFile.getAbsolutePath()));
 
             return cacheFile;
         } catch (MalformedURLException e) {

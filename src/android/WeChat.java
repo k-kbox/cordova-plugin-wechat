@@ -27,9 +27,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.mm.opensdk.modelbiz.ChooseCardFromWXCardPackage;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.JSONArray;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +47,7 @@ import org.json.JSONArray;
  */
 public class WeChat extends CordovaPlugin {
 
-    public static final String TAG = "Cordova.Plugin.Wechat";
+    public static final String TAG = "Cordova.Plugin.WeChat";
 
     public static final String PREFS_NAME = "Cordova.Plugin.WeChat";
     public static final String WXAPPID_PROPERTY_KEY = "wechatappid";
@@ -107,13 +107,13 @@ public class WeChat extends CordovaPlugin {
 
         super.pluginInitialize();
 
-        String id = getAppId();
+         String id = getAppId();
 
-        // save app id
-        saveAppId(cordova.getActivity(), id);
+//         save app id
+         saveAppId(cordova.getActivity(), id);
 
-        // init api
-        initWXAPI();
+//         init api
+         initWXAPI();
 
         Log.d(TAG, "plugin initialized.");
     }
@@ -147,11 +147,13 @@ public class WeChat extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         Log.d(TAG, String.format("%s is called. Callback ID: %s.", action, callbackContext.getCallbackId()));
         if (action.equals("init")) {
-            return init();
+            return init(args, callbackContext);
         } else if (action.equals("share")) {
             return share(args, callbackContext);
         } else if (action.equals("sendAuthRequest")) {
             return sendAuthRequest(args, callbackContext);
+        } else if (action.equals("unifiedOrder")) {
+            return unifiedOrder(args, callbackContext);
         } else if (action.equals("sendPaymentRequest")) {
             return sendPaymentRequest(args, callbackContext);
         } else if (action.equals("isWXAppInstalled")) {
@@ -163,7 +165,7 @@ public class WeChat extends CordovaPlugin {
         return false;
     }
 
-    public void init(JSONArray args, final CallbackContext callbackContext) {
+    public boolean init(JSONArray args, final CallbackContext callbackContext) throws JSONException {
         String id = args.getString(0);
         
         // save app id
@@ -173,6 +175,8 @@ public class WeChat extends CordovaPlugin {
         initWXAPI();
 
         callbackContext.success("ok");
+
+        return true;
     }
 
     protected boolean share(JSONArray args, final CallbackContext callbackContext)
@@ -281,6 +285,26 @@ public class WeChat extends CordovaPlugin {
         return true;
     }
 
+    protected boolean unifiedOrder(JSONArray args, CallbackContext callbackContext) {
+        final String url;
+        final JSONObject params;
+        try {
+            url = args.getString(0);
+            params = args.getJSONObject(1);
+        } catch (JSONException e) {
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            return true;
+        }
+        try {
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
+        }
+        return true;
+    }
+
     protected boolean sendPaymentRequest(JSONArray args, CallbackContext callbackContext) {
 
         // check if # of arguments is correct
@@ -296,7 +320,7 @@ public class WeChat extends CordovaPlugin {
 
         try {
             final String appid = params.getString("appid");
-            final String savedAppid = getAppId(cordova.getActivity());
+            final String savedAppid = getAppId(/*cordova.getActivity()*/);
             if (!savedAppid.equals(appid)) {
                 this.saveAppId(cordova.getActivity(), appid);
             }
@@ -613,9 +637,17 @@ public class WeChat extends CordovaPlugin {
         return null;
     }
 
-    public static String getAppId() {
+    public String getAppId() {
         if (appId == null) {
             appId = preferences.getString(WXAPPID_PROPERTY_KEY, "");
+        }
+
+        return appId;
+    }
+
+    public static String getAppId(Context ctx) {
+        if (appId == null) {
+            appId = getSavedAppId(ctx); // preferences.getString(WXAPPID_PROPERTY_KEY, "");
         }
 
         return appId;

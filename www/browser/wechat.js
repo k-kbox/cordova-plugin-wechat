@@ -73,6 +73,34 @@ module.exports = {
     if (success) success('ok')
   },
 
+  /**
+   *
+   * @param url
+   * @param params
+   * @param success
+   * @param fail
+   */
+  unifiedOrder: function(url, params, success, fail) {
+    // exec(success, fail, "WeChat", "unifiedOrder", [params]);
+    var xhr = new XMLHttpRequest()  // 创建异步请求
+    // 异步请求状态发生改变时会执行这个函数
+    xhr.onreadystatechange = function () {
+      // status == 200 用来判断当前HTTP请求完成
+      if (xhr.readyState == 4){
+        if (xhr.status == 200) {
+          if (success) success(JSON.parse(xhr.responseText))  // 标记已完成
+        } else {
+          if (fail) fail({code: xhr.status, message: xhr.responseText})
+        }
+      }
+    }
+    //连接服务器
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    //发送请求
+    xhr.send(params);
+  },
+
   pay: function (params, success, fail) {
 // exports.pay = function (payinfo, success, error) {
     if (iswx()) {

@@ -18,9 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import com.cordova.plugins.wechat.Wechat;
-
 /**
  *
  */
@@ -30,7 +27,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        IWXAPI api = Wechat.getWxAPI(this);
+        IWXAPI api = WeChat.getWxAPI(this);
 
         if (api == null) {
             startMainActivity();
@@ -45,7 +42,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
 
         setIntent(intent);
 
-        IWXAPI api = Wechat.getWxAPI(this);
+        IWXAPI api = WeChat.getWxAPI(this);
         if (api == null) {
             startMainActivity();
         } else {
@@ -56,9 +53,9 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        Log.d(Wechat.TAG, resp.toString());
+        Log.d(WeChat.TAG, resp.toString());
 
-        CallbackContext ctx = Wechat.getCurrentCallbackContext();
+        CallbackContext ctx = WeChat.getCurrentCallbackContext();
 
         if (ctx == null) {
             startMainActivity();
@@ -81,30 +78,30 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                 }
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_USER_CANCEL);
+                ctx.error(WeChat.ERROR_WECHAT_RESPONSE_USER_CANCEL);
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_AUTH_DENIED);
+                ctx.error(WeChat.ERROR_WECHAT_RESPONSE_AUTH_DENIED);
                 break;
             case BaseResp.ErrCode.ERR_SENT_FAILED:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_SENT_FAILED);
+                ctx.error(WeChat.ERROR_WECHAT_RESPONSE_SENT_FAILED);
                 break;
             case BaseResp.ErrCode.ERR_UNSUPPORT:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_UNSUPPORT);
+                ctx.error(WeChat.ERROR_WECHAT_RESPONSE_UNSUPPORT);
                 break;
             case BaseResp.ErrCode.ERR_COMM:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_COMMON);
+                ctx.error(WeChat.ERROR_WECHAT_RESPONSE_COMMON);
                 break;
             default:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_UNKNOWN);
+                ctx.error(WeChat.ERROR_WECHAT_RESPONSE_UNKNOWN);
                 break;
         }
 
         // restore appid
-        final String appid = Wechat.getAppId();
-        final String savedAppId = Wechat.getSavedAppId(this);
+        final String appid = WeChat.getAppId(this);
+        final String savedAppId = WeChat.getSavedAppId(this);
         if (!savedAppId.equals(appid)) {
-            Wechat.saveAppId(this, Wechat.getAppId());
+            WeChat.saveAppId(this, WeChat.getAppId(this));
         }
 
         finish();
@@ -125,10 +122,10 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
     protected void auth(BaseResp resp) {
         SendAuth.Resp res = ((SendAuth.Resp) resp);
 
-        Log.d(Wechat.TAG, res.toString());
+        Log.d(WeChat.TAG, res.toString());
 
         // get current callback context
-        CallbackContext ctx = Wechat.getCurrentCallbackContext();
+        CallbackContext ctx = WeChat.getCurrentCallbackContext();
 
         if (ctx == null) {
             return ;
@@ -141,7 +138,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
             response.put("country", res.country);
             response.put("lang", res.lang);
         } catch (JSONException e) {
-            Log.e(Wechat.TAG, e.getMessage());
+            Log.e(WeChat.TAG, e.getMessage());
         }
 
         ctx.success(response);
@@ -149,7 +146,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
 
     protected void plunckInvoiceData(BaseResp resp) {
 
-            CallbackContext ctx = Wechat.getCurrentCallbackContext();
+            CallbackContext ctx = WeChat.getCurrentCallbackContext();
             ChooseCardFromWXCardPackage.Resp resp1 = (ChooseCardFromWXCardPackage.Resp) resp;
             JSONObject response = new JSONObject();
 
@@ -157,7 +154,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                 JSONArray resp2 = new JSONArray(resp1.cardItemList);
                 response.put("data", resp2);
             } catch (JSONException e) {
-                Log.e(Wechat.TAG, e.getMessage());
+                Log.e(WeChat.TAG, e.getMessage());
             }
 
             ctx.success(response);
