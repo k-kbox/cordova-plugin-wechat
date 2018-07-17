@@ -1,3 +1,7 @@
+
+var payInfo;
+var cb;
+
 function iswx() {
   const ua = window.navigator.userAgent.toLowerCase();
   // console.log(ua);
@@ -8,10 +12,7 @@ function iswx() {
   }
 }
 
-var payInfo;
-var cb;
-
-export function WXPay(payinfo) {
+function WXPay(payinfo) {
   // console.log(payInfo);
   payInfo = payinfo;
   return new Promise(function (resolve, reject) {
