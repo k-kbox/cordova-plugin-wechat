@@ -96,9 +96,9 @@ module.exports = {
     }
   },
 
-  init: function(params, onSuccess, onError) {
+  init: function(appid, onSuccess, onError) {
     // exec(success, fail, 'WeChat', "init", [appid])
-    AppData.appid = params['wx_appid'];
+    AppData.appid = appid;
     if (isWx()) {
       var script=document.createElement("script");
       // script.setAttribute("type", "text/javascript");
