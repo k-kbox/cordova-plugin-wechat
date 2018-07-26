@@ -2,14 +2,14 @@
 
 #import <Cordova/CDV.h>
 
-@interface WeChat : CDVPlugin {
+@interface Wechat : CDVPlugin {
   // Member variables go here.
 }
 
 - (void)coolMethod:(CDVInvokedUrlCommand*)command;
 @end
 
-@implementation WeChat
+@implementation Wechat
 
 - (void)coolMethod:(CDVInvokedUrlCommand*)command
 {
