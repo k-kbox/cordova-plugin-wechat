@@ -96,15 +96,15 @@ module.exports = {
     }
   },
 
-  init: function(appid, onSuccess, onError) {
+  init: function(params, onSuccess, onError) {
     // exec(success, fail, 'WeChat', "init", [appid])
-    state.appid = appid;
-    if (isWx()) {
-      var script=document.createElement("script");
-      // script.setAttribute("type", "text/javascript");
-      script.setAttribute("src", "http://res.wx.qq.com/open/js/jweixin-1.2.0.js");
-      document.getElementsByTagName("head")[0].appendChild(script);
-    }
+    state.appid = params['wx_appid'];
+    // if (isWx()) {
+    //   var script=document.createElement("script");
+    //   // script.setAttribute("type", "text/javascript");
+    //   script.setAttribute("src", "http://res.wx.qq.com/open/js/jweixin-1.2.0.js");
+    //   document.getElementsByTagName("head")[0].appendChild(script);
+    // }
     if (onSuccess) onSuccess('ok')
   },
 
