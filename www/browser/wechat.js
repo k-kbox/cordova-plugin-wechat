@@ -99,12 +99,19 @@ module.exports = {
   init: function(params, onSuccess, onError) {
     // exec(success, fail, 'WeChat', "init", [appid])
     state.appid = params['wx_appid'];
-    // if (isWx()) {
-    //   var script=document.createElement("script");
-    //   // script.setAttribute("type", "text/javascript");
-    //   script.setAttribute("src", "http://res.wx.qq.com/open/js/jweixin-1.2.0.js");
-    //   document.getElementsByTagName("head")[0].appendChild(script);
-    // }
+    if (isWx()) {
+      var script=document.createElement("script");
+      // script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", "http://res.wx.qq.com/open/js/jweixin-1.2.0.js");
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+    else {
+      //
+      var script = document.createElement("script");
+      script.setAttribute("src", "http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js");
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+
     if (onSuccess) onSuccess('ok')
   },
 
@@ -149,25 +156,28 @@ module.exports = {
       // Wechat.auth(function () { alert("Success"); });
       // Wechat.auth(function () { alert("Success"); }, function (error) { alert(error); });
       // return exec(scope, state, "Wechat", "sendAuthRequest");
+      onError = state;
       onSuccess = scope;
       scope = 'snsapi_userinfo'; // snsapi_userinfo
+      state = 'wechat'
     }
-
-    if (typeof state == "function") {
+    else if (typeof state == "function") {
       // Wechat.auth("snsapi_userinfo", function () { alert("Success"); });
       // Wechat.auth("snsapi_userinfo", function () { alert("Success"); }, function (error) { alert(error); });
       // return exec(state, onSuccess, "Wechat", "sendAuthRequest", [scope]);
       onError = onSuccess;
       onSuccess = state;
+      state = 'wechat';
     }
+
+    var redirect = window.location.protocol + '//'
+      + window.location.hostname
+      + (window.location.port ? (':' + window.location.port) : '')
+      // + (window.location.port !== 80 ? (':' + window.location.port) : '')
+      + '/'; //  '/%23wxlogin';
 
     // return exec(onSuccess, onError, "Wechat", "sendAuthRequest", [scope, state]);
     if (isWx()) {
-      var redirect = window.location.protocol + '//'
-        + window.location.hostname
-        + (window.location.port ? (':' + window.location.port) : '')
-        // + (window.location.port !== 80 ? (':' + window.location.port) : '')
-        + '/'; //  '/%23wxlogin';
       // let redirect = window.location.href + '?wxlogin';
       // alert(redirect)
       window.location.href = // redirect + "?code=1231231";
@@ -176,14 +186,18 @@ module.exports = {
         '&redirect_uri=' + redirect +
         '&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
     } else {
-      if (onError) {
-        // h5
-        onError({
-          err_msg: '请在微信内打开'
-        })
-
-      }
+      var obj = new WxLogin({
+        self_redirect:true,
+        id:"login_container",
+        appid: state.appid,
+        scope: scope,
+        redirect_uri:redirect,
+        state: state,
+        style: "",
+        href: ""
+      });
     }
+
   },
 
   /**
@@ -207,7 +221,7 @@ module.exports = {
    * </code>
    */
   sendPaymentRequest: function (params, onSuccess, onError) {
-    exec(onSuccess, onError, "Wechat", "sendPaymentRequest", [params]);
+    // exec(onSuccess, onError, "Wechat", "sendPaymentRequest", [params]);
     if (isWx()) {
       // var xhr = new XMLHttpRequest()  // 创建异步请求
       // // 异步请求状态发生改变时会执行这个函数
