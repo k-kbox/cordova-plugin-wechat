@@ -70,7 +70,7 @@
             </activity-alias>
         </config-file>
 
-        <source-file src="src/android/WeChat.java" target-dir="src/com/cordova/plugins/wechat" />
+        <source-file src="src/android/Wechat.java" target-dir="src/com/cordova/plugins/wechat" />
         <source-file src="src/android/Util.java" target-dir="src/com/cordova/plugins/wechat" />
         <source-file src="src/android/EntryActivity.java" target-dir="src/com/cordova/plugins/wechat" />
         <source-file src="src/android/WXEntryActivity.java" target-dir="src/com/cordova/plugins/wechat" />
