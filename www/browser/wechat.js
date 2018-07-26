@@ -1,5 +1,5 @@
 
-const state = {
+const AppData = {
   appid: null,
   payInfo: null,
   cb: null
@@ -17,9 +17,9 @@ function isWx() {
 
 function WXPay(payinfo) {
   // console.log(payInfo);
-  state.payInfo = payinfo;
+  AppData.payInfo = payinfo;
   return new Promise(function (resolve, reject) {
-    state.cb = function (res) {
+    AppData.cb = function (res) {
       // console.log(res)
       if (res && res.err_msg == "get_brand_wcpay_request:ok") {
         resolve(res)
@@ -45,12 +45,12 @@ function WXPay(payinfo) {
 function onBridgeReady() {
   // return new Promise(function (resolve, reject) {
   var opts = {
-    "appId": state.payInfo.appId, // "wx2421b1c4370ec43b",     //公众号名称，由商户传入
-    "timeStamp": state.payInfo.timeStamp, //"1395712654",         //时间戳，自1970年以来的秒数
-    "nonceStr": state.payInfo.nonceStr, //"e61463f8efa94090b1f366cccfbbb444", //随机串
-    "package": state.payInfo.package, //"prepay_id=u802345jgfjsdfgsdg888",
-    "signType": state.payInfo.signType, //"MD5",         //微信签名方式：
-    "paySign": state.payInfo.paySign, //"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+    "appId": AppData.payInfo.appId, // "wx2421b1c4370ec43b",     //公众号名称，由商户传入
+    "timeStamp": AppData.payInfo.timeStamp, //"1395712654",         //时间戳，自1970年以来的秒数
+    "nonceStr": AppData.payInfo.nonceStr, //"e61463f8efa94090b1f366cccfbbb444", //随机串
+    "package": AppData.payInfo.package, //"prepay_id=u802345jgfjsdfgsdg888",
+    "signType": AppData.payInfo.signType, //"MD5",         //微信签名方式：
+    "paySign": AppData.payInfo.paySign, //"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
   };
   // alert(JSON.stringify(opts));
   WeixinJSBridge.invoke(
@@ -58,7 +58,7 @@ function onBridgeReady() {
     function (res) {
       // alert(JSON.stringify(res))
       //
-      state.cb && state.cb(res);
+      AppData.cb && AppData.cb(res);
       // if (res.err_msg == "get_brand_wcpay_request:ok") {
       //
       //   resolve(res)
@@ -89,7 +89,7 @@ module.exports = {
   },
 
   isInstalled: function (onSuccess, onError) {
-    if (state.appid) {
+    if (AppData.appid) {
       if (onSuccess) onSuccess(true)
     } else {
       if (onError) onSuccess(false);
@@ -98,7 +98,7 @@ module.exports = {
 
   init: function(params, onSuccess, onError) {
     // exec(success, fail, 'WeChat', "init", [appid])
-    state.appid = params['wx_appid'];
+    AppData.appid = params['wx_appid'];
     if (isWx()) {
       var script=document.createElement("script");
       // script.setAttribute("type", "text/javascript");
@@ -182,14 +182,14 @@ module.exports = {
       // alert(redirect)
       window.location.href = // redirect + "?code=1231231";
         'https://open.weixin.qq.com/connect/oauth2/authorize' +
-        '?appid=' + state.appid +
+        '?appid=' + AppData.appid +
         '&redirect_uri=' + redirect +
         '&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
     } else {
       var obj = new WxLogin({
         self_redirect:true,
         id:"login_container",
-        appid: state.appid,
+        appid: AppData.appid,
         scope: scope,
         redirect_uri:redirect,
         state: state,
