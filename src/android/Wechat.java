@@ -45,11 +45,11 @@ import org.json.JSONArray;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class WeChat extends CordovaPlugin {
+public class Wechat extends CordovaPlugin {
 
-    public static final String TAG = "Cordova.Plugin.WeChat";
+    public static final String TAG = "Cordova.Plugin.Wechat";
 
-    public static final String PREFS_NAME = "Cordova.Plugin.WeChat";
+    public static final String PREFS_NAME = "Cordova.Plugin.Wechat";
     public static final String WXAPPID_PROPERTY_KEY = "wechatappid";
 
     public static final String ERROR_WECHAT_NOT_INSTALLED = "未安装微信";

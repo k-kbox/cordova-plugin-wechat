@@ -1,8 +1,11 @@
 
-var payInfo;
-var cb;
+const state = {
+  appid: null,
+  payInfo: null,
+  cb: null
+}
 
-function iswx() {
+function isWx() {
   const ua = window.navigator.userAgent.toLowerCase();
   // console.log(ua);
   if (ua.match(/MicroMessenger/i)) {
@@ -14,9 +17,9 @@ function iswx() {
 
 function WXPay(payinfo) {
   // console.log(payInfo);
-  payInfo = payinfo;
+  state.payInfo = payinfo;
   return new Promise(function (resolve, reject) {
-    cb = function (res) {
+    state.cb = function (res) {
       // console.log(res)
       if (res && res.err_msg == "get_brand_wcpay_request:ok") {
         resolve(res)
@@ -42,12 +45,12 @@ function WXPay(payinfo) {
 function onBridgeReady() {
   // return new Promise(function (resolve, reject) {
   var opts = {
-    "appId": payInfo.appId, // "wx2421b1c4370ec43b",     //公众号名称，由商户传入
-    "timeStamp": payInfo.timeStamp, //"1395712654",         //时间戳，自1970年以来的秒数
-    "nonceStr": payInfo.nonceStr, //"e61463f8efa94090b1f366cccfbbb444", //随机串
-    "package": payInfo.package, //"prepay_id=u802345jgfjsdfgsdg888",
-    "signType": payInfo.signType, //"MD5",         //微信签名方式：
-    "paySign": payInfo.paySign, //"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+    "appId": state.payInfo.appId, // "wx2421b1c4370ec43b",     //公众号名称，由商户传入
+    "timeStamp": state.payInfo.timeStamp, //"1395712654",         //时间戳，自1970年以来的秒数
+    "nonceStr": state.payInfo.nonceStr, //"e61463f8efa94090b1f366cccfbbb444", //随机串
+    "package": state.payInfo.package, //"prepay_id=u802345jgfjsdfgsdg888",
+    "signType": state.payInfo.signType, //"MD5",         //微信签名方式：
+    "paySign": state.payInfo.paySign, //"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
   };
   // alert(JSON.stringify(opts));
   WeixinJSBridge.invoke(
@@ -55,7 +58,7 @@ function onBridgeReady() {
     function (res) {
       // alert(JSON.stringify(res))
       //
-      cb && cb(res);
+      state.cb && state.cb(res);
       // if (res.err_msg == "get_brand_wcpay_request:ok") {
       //
       //   resolve(res)
@@ -69,42 +72,143 @@ function onBridgeReady() {
 }
 
 module.exports = {
-  init: function(appid, success, fail) {
+  Scene: {
+    SESSION:  0, // 聊天界面
+    TIMELINE: 1, // 朋友圈
+    FAVORITE: 2  // 收藏
+  },
+
+  Type: {
+    APP:     1,
+    EMOTION: 2,
+    FILE:    3,
+    IMAGE:   4,
+    MUSIC:   5,
+    VIDEO:   6,
+    WEBPAGE: 7
+  },
+
+  isInstalled: function (onSuccess, onError) {
+    if (state.appid) {
+      if (onSuccess) onSuccess(true)
+    } else {
+      if (onError) onSuccess(false);
+    }
+  },
+
+  init: function(appid, onSuccess, onError) {
     // exec(success, fail, 'WeChat', "init", [appid])
-    if (success) success('ok')
+    state.appid = appid;
+    if (isWx()) {
+      var script=document.createElement("script");
+      // script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", "http://res.wx.qq.com/open/js/jweixin-1.2.0.js");
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+    if (onSuccess) onSuccess('ok')
   },
 
   /**
+   * Share a message to wechat app
    *
-   * @param url
-   * @param params
-   * @param success
-   * @param fail
+   * @example
+   * <code>
+   * Wechat.share({
+     *     message: {
+     *        title: "Message Title",
+     *        description: "Message Description(optional)",
+     *        mediaTagName: "Media Tag Name(optional)",
+     *        thumb: "http://YOUR_THUMBNAIL_IMAGE",
+     *        media: {
+     *            type: Wechat.Type.WEBPAGE,   // webpage
+     *            webpageUrl: "https://github.com/xu-li/cordova-plugin-wechat"    // webpage
+     *        }
+     *    },
+     *    scene: Wechat.Scene.TIMELINE   // share to Timeline
+     * }, function () {
+     *     alert("Success");
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+   * </code>
    */
-  unifiedOrder: function(url, params, success, fail) {
-    // exec(success, fail, "WeChat", "unifiedOrder", [params]);
-    var xhr = new XMLHttpRequest()  // 创建异步请求
-    // 异步请求状态发生改变时会执行这个函数
-    xhr.onreadystatechange = function () {
-      // status == 200 用来判断当前HTTP请求完成
-      if (xhr.readyState == 4){
-        if (xhr.status == 200) {
-          if (success) success(JSON.parse(xhr.responseText))  // 标记已完成
-        } else {
-          if (fail) fail({code: xhr.status, message: xhr.responseText})
-        }
-      }
-    }
-    //连接服务器
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    //发送请求
-    xhr.send(params);
+  share: function (message, onSuccess, onError) {
+    // exec(onSuccess, onError, "Wechat", "share", [message]);
   },
 
-  pay: function (params, success, fail) {
-// exports.pay = function (payinfo, success, error) {
-    if (iswx()) {
+  /**
+   * Sending an auth request to Wechat
+   *
+   * @example
+   * <code>
+   * Wechat.auth(function (response) { alert(response.code); });
+   * </code>
+   */
+  auth: function (scope, state, onSuccess, onError) {
+    if (typeof scope == "function") {
+      // Wechat.auth(function () { alert("Success"); });
+      // Wechat.auth(function () { alert("Success"); }, function (error) { alert(error); });
+      // return exec(scope, state, "Wechat", "sendAuthRequest");
+      onSuccess = scope;
+      scope = 'snsapi_userinfo'; // snsapi_userinfo
+    }
+
+    if (typeof state == "function") {
+      // Wechat.auth("snsapi_userinfo", function () { alert("Success"); });
+      // Wechat.auth("snsapi_userinfo", function () { alert("Success"); }, function (error) { alert(error); });
+      // return exec(state, onSuccess, "Wechat", "sendAuthRequest", [scope]);
+      onError = onSuccess;
+      onSuccess = state;
+    }
+
+    // return exec(onSuccess, onError, "Wechat", "sendAuthRequest", [scope, state]);
+    if (isWx()) {
+      var redirect = window.location.protocol + '//'
+        + window.location.hostname
+        + (window.location.port ? (':' + window.location.port) : '')
+        // + (window.location.port !== 80 ? (':' + window.location.port) : '')
+        + '/'; //  '/%23wxlogin';
+      // let redirect = window.location.href + '?wxlogin';
+      // alert(redirect)
+      window.location.href = // redirect + "?code=1231231";
+        'https://open.weixin.qq.com/connect/oauth2/authorize' +
+        '?appid=' + state.appid +
+        '&redirect_uri=' + redirect +
+        '&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
+    } else {
+      if (onError) {
+        // h5
+        onError({
+          err_msg: '请在微信内打开'
+        })
+
+      }
+    }
+  },
+
+  /**
+   * Send a payment request
+   *
+   * @link https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=9_1
+   * @example
+   * <code>
+   * var params = {
+     *     mch_id: '10000100', // merchant id
+     *     prepay_id: 'wx201411101639507cbf6ffd8b0779950874', // prepay id returned from server
+     *     nonce: '1add1a30ac87aa2db72f57a2375d8fec', // nonce string returned from server
+     *     timestamp: '1439531364', // timestamp
+     *     sign: '0CB01533B8C1EF103065174F50BCA001', // signed string
+     * };
+   * Wechat.sendPaymentRequest(params, function () {
+     *     alert("Success");
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+   * </code>
+   */
+  sendPaymentRequest: function (params, onSuccess, onError) {
+    exec(onSuccess, onError, "Wechat", "sendPaymentRequest", [params]);
+    if (isWx()) {
       // var xhr = new XMLHttpRequest()  // 创建异步请求
       // // 异步请求状态发生改变时会执行这个函数
       // xhr.onreadystatechange = function () {
@@ -120,24 +224,88 @@ module.exports = {
       // xhr.send(params.join("&"));
       WXPay(params)
         .then((ret) => {
-          if (success) {
-            success(ret)
+          if (onSuccess) {
+            onSuccess(ret)
           }
         })
         .catch((err) => {
-          if (fail) {
-            fail(err)
+          if (onError) {
+            onError(err)
           }
         })
 
     } else {
-      if (fail) {
+      if (onError) {
         // h5
-        fail({
+        onError({
           err_msg: '请在微信内支付'
         })
 
       }
     }
+  },
+
+  /**
+   * jumpToBizProfile （跳转到某个微信公众号）2016-11-11 测试是失效的，囧
+   *
+   * @link https://segmentfault.com/a/1190000007204624
+   * @link https://segmentfault.com/q/1010000003907796
+   * @example
+   * <code>
+   * var params = {
+     *     info: 'gh_xxxxxxx', // 公众帐号原始ID
+     *     type:  'Normal' // 普通号
+     * }
+   * or
+   * var params = {
+     *     info: 'extMsg', // 相关的硬件二维码串
+     *     type:  'Device' // 硬件号
+     * };
+   * Wechat.jumpToBizProfile(params, function () {
+     *     alert("Success");
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+   * </code>
+   */
+
+  jumpToBizProfile: function (params, onSuccess, onError) {
+    // exec(onSuccess, onError, "Wechat", "jumpToBizProfile", [params]);
+  },
+
+  /**
+   * jumpToWechat （因为jumpToBizProfile失效了，暂时新增了一个临时的api)
+   *
+   * @link https://segmentfault.com/a/1190000007204624
+   * @example
+   * <code>
+   * var url = "wechat://" 现阶段貌似只支持这一个协议了
+   * Wechat.jumpToWechat(url, function () {
+     *     alert("Success");
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+   * </code>
+   */
+  jumpToWechat: function (url, onSuccess, onError) {
+    // exec(onSuccess, onError, "Wechat", "jumpToWechat", [url]);
+  },
+
+  /**
+   * chooseInvoiceFromWX exq:choose invoices from Wechat card list
+   *
+   * @example
+   * <code>
+   * params: signType, cardSign, nonceStr, timeStamp  all required
+   * Wechat.chooseInvoiceFromWX(params, function () {
+     *     alert("Success");
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+   * </code>
+   */
+  chooseInvoiceFromWX: function (params, onSuccess, onError) {
+    // exec(onSuccess, onError, "Wechat", "chooseInvoiceFromWX", [params]);
   }
+
 }
