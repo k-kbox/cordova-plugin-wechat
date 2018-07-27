@@ -50,7 +50,7 @@ public class Wechat extends CordovaPlugin {
     public static final String TAG = "Cordova.Plugin.Wechat";
 
     public static final String PREFS_NAME = "Cordova.Plugin.Wechat";
-    public static final String WXAPPID_PROPERTY_KEY = "wechatappid";
+    public static final String WXAPPID_PROPERTY_KEY = "wechat_appid";
 
     public static final String ERROR_WECHAT_NOT_INSTALLED = "未安装微信";
     public static final String ERROR_INVALID_PARAMETERS = "参数格式错误";
@@ -102,18 +102,18 @@ public class Wechat extends CordovaPlugin {
     protected static IWXAPI wxAPI;
     protected static String appId;
 
-    @Override
+    //@Override
     protected void pluginInitialize() {
 
         super.pluginInitialize();
 
-         String id = getAppId();
+        String id = getAppId();
 
 //         save app id
-         saveAppId(cordova.getActivity(), id);
+        saveAppId(cordova.getActivity(), id);
 
 //         init api
-         initWXAPI();
+        initWXAPI();
 
         Log.d(TAG, "plugin initialized.");
     }
@@ -167,12 +167,14 @@ public class Wechat extends CordovaPlugin {
 
     public boolean init(JSONArray args, final CallbackContext callbackContext) throws JSONException {
         String id = args.getString(0);
-        
+
+        Log.d(TAG, "init args [" + args.toString() + "]");
+
         // save app id
-        saveAppId(cordova.getActivity(), id);
+        // saveAppId(cordova.getActivity(), id);
     
         // init api
-        initWXAPI();
+        // initWXAPI();
 
         callbackContext.success("ok");
 

@@ -37,8 +37,8 @@ module.exports = {
     exec(onSuccess, onError, "Wechat", "isWXAppInstalled", []);
   },
   
-  init: function (appid, success, fail) {
-    exec(success, fail, 'Wechat', "init", [appid])
+  init: function (appid, onSuccess, onError) {
+    exec(onSuccess, onError, 'Wechat', "init", [appid])
   },
     
   /**
