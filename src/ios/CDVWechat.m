@@ -7,21 +7,36 @@
 //
 
 #import "CDVWechat.h"
+#import "AppDelegate.h"
 
 static int const MAX_THUMBNAIL_SIZE = 320;
+
+@implementation AppDelegate
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL isSuc = [WXApi handleOpenURL:url delegate:self];
+    NSLog(@"url %@ isSuc %d",url,isSuc == YES ? 1 : 0);
+    return  isSuc;
+}
+@end
 
 @implementation CDVWechat
 
 #pragma mark "API"
 - (void)pluginInitialize {
-    NSString* appId = [[self.commandDelegate settings] objectForKey:@"wechat_appid"];
+    // NSString* appId = [[self.commandDelegate settings] objectForKey:@"wechat_appid"];
 
-    if (appId && ![appId isEqualToString:self.wechatAppId]) {
-        self.wechatAppId = appId;
-        [WXApi registerApp: appId];
+    // if (appId && ![appId isEqualToString:self.wechatAppId]) {
+    //     self.wechatAppId = appId;
+    //     [WXApi registerApp: appId];
 
-        NSLog(@"cordova-plugin-wechat has been initialized. Wechat SDK Version: %@. APP_ID: %@.", [WXApi getApiVersion], appId);
-    }
+    //     NSLog(@"cordova-plugin-wechat has been initialized. Wechat SDK Version: %@. APP_ID: %@.", [WXApi getApiVersion], appId);
+    // }
 }
 
 - (void)isWXAppInstalled:(CDVInvokedUrlCommand *)command
@@ -35,9 +50,15 @@ static int const MAX_THUMBNAIL_SIZE = 320;
 {
     NSString* appId = [command.arguments objectAtIndex:0];
 
-    NSLog(@"cordova-plugin-wechat init. APP_ID: %@.", appId);
+    // NSLog(@"cordova-plugin-wechat init. APP_ID: %@.", appId);
 
-    [self successWithCallbackID:command.callbackId withMessage:@"ok"];
+    if (appId && ![appId isEqualToString:self.wechatAppId]) {
+        self.wechatAppId = appId;
+        [WXApi registerApp: appId];
+
+        NSLog(@"cordova-plugin-wechat has been initialized. Wechat SDK Version: %@. APP_ID: %@.", [WXApi getApiVersion], appId);
+    }
+    // [self successWithCallbackID:command.callbackId withMessage:@"ok"];
 }
 
 - (void)share:(CDVInvokedUrlCommand *)command

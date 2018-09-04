@@ -107,13 +107,13 @@ public class Wechat extends CordovaPlugin {
 
         super.pluginInitialize();
 
-        String id = getAppId();
+        // String id = getAppId();
 
 //         save app id
-        saveAppId(cordova.getActivity(), id);
+        // saveAppId(cordova.getActivity(), id);
 
 //         init api
-        initWXAPI();
+        // initWXAPI();
 
         Log.d(TAG, "plugin initialized.");
     }
@@ -171,10 +171,10 @@ public class Wechat extends CordovaPlugin {
         Log.d(TAG, "init args [" + args.toString() + "]");
 
         // save app id
-        // saveAppId(cordova.getActivity(), id);
+        saveAppId(cordova.getActivity(), id);
     
         // init api
-        // initWXAPI();
+        initWXAPI();
 
         callbackContext.success("ok");
 
@@ -640,11 +640,12 @@ public class Wechat extends CordovaPlugin {
     }
 
     public String getAppId() {
-        if (appId == null) {
-            appId = preferences.getString(WXAPPID_PROPERTY_KEY, "");
-        }
+        // if (appId == null) {
+        //     appId = preferences.getString(WXAPPID_PROPERTY_KEY, "");
+        // }
 
-        return appId;
+        // return appId;
+        return getAppId(cordova.getActivity());
     }
 
     public static String getAppId(Context ctx) {

@@ -12,7 +12,7 @@
             <feature name="Wechat">
                 <param name="android-package" value="com.cordova.plugins.wechat.Wechat"/>
             </feature>
-            <preference name="WECHAT_APPID" value="$WECHAT_APPID"/>
+            <!--<preference name="WECHAT_APPID" value="$WECHAT_APPID"/>-->
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/*">
@@ -31,7 +31,7 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <data android:scheme="$WECHAT_APPID"/>
+                    <!--<data android:scheme="$WECHAT_APPID"/>-->
                 </intent-filter>
             </activity>
             <activity
@@ -42,7 +42,7 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <data android:scheme="$WECHAT_APPID"/>
+                    <!--<data android:scheme="$WECHAT_APPID"/>-->
                 </intent-filter>
             </activity>
             <activity-alias
@@ -53,7 +53,7 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <data android:scheme="$WECHAT_APPID"/>
+                    <!--<data android:scheme="$WECHAT_APPID"/>-->
                 </intent-filter>
             </activity-alias>
             <activity-alias
@@ -65,7 +65,7 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <data android:scheme="$WECHAT_APPID"/>
+                    <!--<data android:scheme="$WECHAT_APPID"/>-->
                 </intent-filter>
             </activity-alias>
         </config-file>
@@ -116,6 +116,7 @@
         </config-file>
 
         <!-- Plugin source code -->
+        <header-file src="src/ios/AppDelegate+CDVWechat.h" />
         <header-file src="src/ios/CDVWechat.h" />
         <source-file src="src/ios/CDVWechat.m" />
 
